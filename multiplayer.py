@@ -1,4 +1,8 @@
-import pygame, random
+import pygame
+import random
+import socket
+
+from pygame.constants import TEXTINPUT
 
 pygame.init()
 running = True
@@ -6,6 +10,30 @@ clock = pygame.time.Clock()
 pygame.display.set_caption('Ping Pong')
 pygame.display.set_icon(pygame.image.load('icon.png'))
 
+
+class Select:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+        self.s = socket.socket()
+
+    def server(self):
+        self.s.bind((self.host, self.port))
+        self.s.listen(1)
+        self.clientsocket, self.address = self.s.accept()
+        while self.clientsocket:
+            print(f"{self.address} connected")
+            while True:
+                self.data = self.clientsocket.recv(1024)
+                if not self.data:
+                    break
+                print(self.data)
+                self.clientsocket.sendall(paddle2)
+    def client(self):
+        self.s.connect((self.host,self.port))
+        x=self.s.sendall(paddle1)
+        print(x)
+        self.s.recv(1024)
 
 def ball_animation():
     global ball_speed_x, ball_speed_y
@@ -28,6 +56,7 @@ def paddle_animation():
         paddle1.top = 0
     if paddle1.bottom >= screen_height:
         paddle1.bottom = screen_height
+
 
 screen_width, screen_height = 1280, 960
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -64,5 +93,6 @@ while running:
     pygame.draw.rect(screen, color, paddle1)
     pygame.draw.rect(screen, color, paddle2)
     pygame.draw.ellipse(screen, color, ball)
-    pygame.draw.aaline(screen, color, (screen_width / 2, 0), (screen_width / 2, screen_height))
+    pygame.draw.aaline(screen, color, (screen_width / 2, 0),
+                       (screen_width / 2, screen_height))
     pygame.display.update()
