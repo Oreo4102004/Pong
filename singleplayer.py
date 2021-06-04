@@ -41,7 +41,7 @@ def AI():
         paddle2.bottom = screen_height
 
 
-screen_width, screen_height = 1280, 960
+screen_width, screen_height = 1000, 700
 screen = pygame.display.set_mode((screen_width, screen_height))
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)
 paddle1 = pygame.Rect(screen_width - 20, screen_height / 2 - 70, 10, 140)
