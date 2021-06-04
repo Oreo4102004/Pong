@@ -9,12 +9,6 @@ ip = tkinter.StringVar()
 tport = tkinter.StringVar()
 
 
-def get_something():
-    x = ip.get()
-    y = port.get()
-    print(x, y)
-
-
 def single():
     win.destroy()
     import singleplayer
